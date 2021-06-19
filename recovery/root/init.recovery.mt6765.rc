@@ -6,6 +6,13 @@ on fs
     setprop crypto.ready 1
     write /sys/class/power_supply/usb/otg_switch 1
 
+service erase_para /sbin/dd if=/dev/zero of=/dev/block/bootdevice/by-name/para
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+    oneshot
+
 service keystore_auth /system/bin/keystore_auth
     oneshot
     user system
